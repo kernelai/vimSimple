@@ -7,7 +7,6 @@
 call plug#begin('~/.vim_runtime/plugged')
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'majutsushi/tagbar'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -20,10 +19,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree',{ 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"tag
+Plug 'majutsushi/tagbar'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "代码补全
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
+" 括号补全
+Plug 'Raimondi/delimitMate'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -39,7 +43,7 @@ map <leader>nf :NERDTreeFind<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F8> :TagbarToggle<CR>
+nmap <F3> :TagbarToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-easy-align
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

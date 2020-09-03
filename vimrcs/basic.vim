@@ -1,6 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " conmmon config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let mapleader=" "
 set number
 " Set to auto read when a file is changed from the outside
@@ -53,6 +54,10 @@ set novisualbell
 set t_vb=
 set tm=500
 set belloff=all
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+"set whichwrap+=<,>,h,l
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
