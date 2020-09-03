@@ -28,6 +28,9 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'honza/vim-snippets'
 " 括号补全
 Plug 'Raimondi/delimitMate'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"查找
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -136,3 +139,22 @@ let g:coc_snippet_prev = '<c-k>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "设置颜色主题
 autocmd vimenter * colorscheme gruvbox
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"leader F
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_ShortcutB = '<c-b>'
+noremap <c-n> :LeaderfMru<cr>
+noremap <c-f> :LeaderfFunction!<cr>
+noremap <c-b> :LeaderfBuffer<cr>
+noremap <c-t> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
