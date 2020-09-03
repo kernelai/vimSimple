@@ -145,7 +145,7 @@ autocmd vimenter * colorscheme gruvbox
 let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_ShortcutB = '<c-b>'
 noremap <c-n> :LeaderfMru<cr>
-noremap <c-f> :LeaderfFunction!<cr>
+noremap <c-f> :LeaderfFunction<cr>
 noremap <c-b> :LeaderfBuffer<cr>
 noremap <c-t> :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
