@@ -96,6 +96,9 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

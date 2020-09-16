@@ -19,8 +19,14 @@ Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree',{ 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"undo tree
+Plug 'mbbill/undotree'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "tag
 Plug 'majutsushi/tagbar'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ctags 
+Plug 'ludovicchabant/vim-gutentags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "代码补全
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -31,6 +37,11 @@ Plug 'Raimondi/delimitMate'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "查找
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'mileszs/ack.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tmux 
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -43,6 +54,10 @@ let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"undotree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <F4> :UndotreeToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -59,7 +74,7 @@ nmap ga <Plug>(EasyAlign)
 "coc config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 自动安装coc 扩展
-let g:coc_global_extensions = ['coc-json','coc-vimlsp', 'coc-snippets']
+let g:coc_global_extensions = ['coc-json','coc-vimlsp', 'coc-snippets','coc-highlight', 'coc-yank' ]
 " 设置合并左侧行号状态
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -114,8 +129,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "coc snippets
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -158,3 +173,55 @@ let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-gutentags
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ctags
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tags=./.tags;,.tags
+noremap <leader>t :tselect<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Ack search
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ?    a quick summary of these keys, repeat to close
+" o    to open (same as Enter)
+" O    to open and close the quickfix window
+" go   to preview file, open but maintain focus on ack.vim results
+" t    to open in new tab
+" T    to open in new tab without moving to it
+" h    to open in horizontal split
+" H    to open in horizontal split, keeping focus on the results
+" v    to open in vertical split
+" gv   to open in vertical split, keeping focus on the results
+" q    to close the quickfix window
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+" don't want to jump to the first result automatically
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" aire line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 显示tab
+let g:airline#extensions#tabline#enabled = 1
