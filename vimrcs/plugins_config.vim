@@ -79,7 +79,7 @@ nmap ga <Plug>(EasyAlign)
 "coc config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 自动安装coc 扩展
-let g:coc_global_extensions = ['coc-json','coc-vimlsp', 'coc-snippets','coc-highlight', 'coc-yank' ]
+let g:coc_global_extensions = ['coc-json','coc-vimlsp', 'coc-snippets','coc-yank' ]
 " 设置合并左侧行号状态
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
