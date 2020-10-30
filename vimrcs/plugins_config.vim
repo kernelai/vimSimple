@@ -39,9 +39,16 @@ Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'mileszs/ack.vim'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tmux 
 Plug 'christoomey/vim-tmux-navigator'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 异步执行
+Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asynctasks.vim'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -49,7 +56,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
-let NERDTreeIgnore = ['\.pyc$', '__pycache__', '\.o']
+let NERDTreeIgnore = ['\.pyc$', '__pycache__', '\.o', '\.d']
 let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
@@ -231,3 +238,86 @@ nnoremap <Leader>a :Ack!<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示tab
 let g:airline#extensions#tabline#enabled = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" asyncrun
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" automatically open quickfix window when AsyncRun command is executed
+" set the quickfix window 6 lines height.
+let g:asyncrun_open = 10
+
+" ring the bell to notify you job finished
+let g:asyncrun_bell = 1
+
+" F10 to toggle quickfix window
+nnoremap <F10> :call asyncrun#quickfix_toggle(10)<cr>
+"nnoremap <Leader>t :AsyncRun<Space>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" asynctask
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let current_tasks = asynctasks#list("")
+" leaderF  intigrate task
+"
+noremap <silent><f5> :AsyncTask file-run<cr>
+noremap <silent><f9> :AsyncTask file-build<cr>
+noremap <silent><f6> :AsyncTask project-run<cr>
+noremap <silent><f7> :AsyncTask project-build<cr>
+" leaderf  与task list 集成
+noremap <Leader>t :Leaderf --nowrap task<cr>
+
+let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
+" 全局配置文件
+let g:asynctasks_extra_config = [
+    \ '~/.vim_runtime/tasks.iin',
+    \ ]
+
+"
+"
+"
+function! s:lf_task_source(...)
+	let rows = asynctasks#source(&columns * 48 / 100)
+	let source = []
+	for row in rows
+		let name = row[0]
+		let source += [name . '  ' . row[1] . '  : ' . row[2]]
+	endfor
+	return source
+endfunction
+
+
+function! s:lf_task_accept(line, arg)
+	let pos = stridx(a:line, '<')
+	if pos < 0
+		return
+	endif
+	let name = strpart(a:line, 0, pos)
+	let name = substitute(name, '^\s*\(.\{-}\)\s*$', '\1', '')
+	if name != ''
+		exec "AsyncTask " . name
+	endif
+endfunction
+
+function! s:lf_task_digest(line, mode)
+	let pos = stridx(a:line, '<')
+	if pos < 0
+		return [a:line, 0]
+	endif
+	let name = strpart(a:line, 0, pos)
+	return [name, 0]
+endfunction
+
+function! s:lf_win_init(...)
+	setlocal nonumber
+	setlocal nowrap
+endfunction
+
+
+let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
+let g:Lf_Extensions.task = {
+			\ 'source': string(function('s:lf_task_source'))[10:-3],
+			\ 'accept': string(function('s:lf_task_accept'))[10:-3],
+			\ 'get_digest': string(function('s:lf_task_digest'))[10:-3],
+			\ 'highlights_def': {
+			\     'Lf_hl_funcScope': '^\S\+',
+			\     'Lf_hl_funcDirname': '^\S\+\s*\zs<.*>\ze\s*:',
+			\ },
+		\ }
