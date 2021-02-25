@@ -10,10 +10,22 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 编辑文件
+" enhence . cmd
+Plug 'tpope/vim-repeat'
+" change surround
+Plug 'tpope/vim-surround'
+" fast select
+Plug 'gcmt/wildfire.vim'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "color 
 Plug 'morhetz/gruvbox'
+" monokai 主题
+"Plug 'sickill/vim-monokai'
 "状态栏
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "浏览文件
 Plug 'scrooloose/nerdtree',{ 'on': 'NERDTreeToggle' }
@@ -23,13 +35,13 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mbbill/undotree'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "tag
-Plug 'majutsushi/tagbar'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "ctags 
 Plug 'ludovicchabant/vim-gutentags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "代码补全
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 " 括号补全
@@ -44,7 +56,7 @@ Plug 'junegunn/fzf.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tmux 
-Plug 'christoomey/vim-tmux-navigator'
+"Plug 'christoomey/vim-tmux-navigator'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 异步执行
 Plug 'skywind3000/asyncrun.vim'
@@ -71,9 +83,10 @@ let g:plug_window = 'noautocmd vertical topleft new'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <F4> :UndotreeToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F3> :TagbarToggle<CR>
+"nmap <F3> :TagbarToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-easy-align
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -86,7 +99,7 @@ nmap ga <Plug>(EasyAlign)
 "coc config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 自动安装coc 扩展
-let g:coc_global_extensions = ['coc-json','coc-vimlsp', 'coc-snippets','coc-yank' ]
+let g:coc_global_extensions = ['coc-json','coc-vimlsp', 'coc-snippets', 'coc-highlight' ]
 " 设置合并左侧行号状态
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -144,6 +157,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 "xmap <leader>f  <Plug>(coc-format-selected)
 "nmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>d :CocList diagnostics<cr>   
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "coc snippets
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,6 +181,10 @@ let g:coc_snippet_prev = '<c-k>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "设置颜色主题
 autocmd vimenter * colorscheme gruvbox
+"try
+"  colorscheme monokai
+"catch
+"endtry
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "leader F
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -238,6 +256,12 @@ nnoremap <Leader>a :Ack!<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示tab
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" aire line theme
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_theme='badwolf'
+"let g:airline_theme='simple'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " asyncrun
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

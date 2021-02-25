@@ -16,7 +16,11 @@ set updatetime=100
 "选项用于设置Vim缩短消息长度的标志位列表，例如，shortmess=m 表示用 “[+]” 代替 “[Modified]”
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
+" 在处理未保存或只读文件的时候，弹出确认
+set confirm
+" 禁止生成临时文件
+set nobackup
+set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
